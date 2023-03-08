@@ -10,6 +10,8 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
     TetrisBoard board;
     TetrominoFactory factory;
     Tetromino fallingTetromino;
+
+    GameState gameState = GameState.ACTIVE_GAME;
     
     public TetrisModel(TetrisBoard board, TetrominoFactory factory, Tetromino fallingTetromino){
         this.board = board;
@@ -33,28 +35,61 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
 
     @Override
     public boolean moveTetromino(int deltaRow, int deltaCol) {
-        //bruk shifteby for å lage en kopi av tetrominoen som skal være en kanditat for å bli flyttet
-        //Tetromino copy = fallingTetromino.shiftedBy(deltaRow, deltaCol);
-        if(legalTetreminoMove(fallingTetromino.shiftedBy(deltaRow, deltaCol))){
-            fallingTetromino= fallingTetromino.shiftedBy(deltaRow, deltaCol);
+        Tetromino ShapeCopy = fallingTetromino.shiftedBy(deltaRow, deltaCol);
+        if(legalTetreminoMove(ShapeCopy)){
+            this.fallingTetromino = ShapeCopy;
             return true;
         }
         return false;
-
-        //sjekke om den er lovlig med metoden under
-        //hvis den er lovlig, sett current tetromino til den nye tetrominoen og return true
-        //om ikke, return false 
     }
 
     //skriv i javadoc
-    public boolean legalTetreminoMove(Tetromino shape){ //endre   
+    public boolean legalTetreminoMove(Tetromino shape){    
         for (GridCell<Character> ShapeCell : shape) {
             CellPosition pos = ShapeCell.pos();
-            if(board.positionIsOnGrid(pos) || board.get(pos) != '-'){
-                return true;
+            if(!(board.positionIsOnGrid(pos) && board.get(pos) == '-')){
+                return false;
             }
         }
-        return false;
+        return true;
     }
-      
+
+
+    @Override
+    public void rotateTetromino() {
+        Tetromino newTetromino = this.fallingTetromino.rotateTetromino();
+        if(legalTetreminoMove(newTetromino)){
+            this.fallingTetromino = newTetromino;
+        }
+    }
+
+    @Override
+    public boolean tetrominoDrop() {
+       while(legalTetreminoMove(fallingTetromino.shiftedBy(1, 0))){
+        moveTetromino(1, 0);
+       }
+       glueTetromino();
+       return true;
+    } 
+    
+    public void newShape(){
+        fallingTetromino = factory.getNext().shiftedToTopCenterOf(board);
+        if(!(legalTetreminoMove(fallingTetromino))){
+            gameState = GameState.GAME_OVER;
+        }
+    }
+
+    public void glueTetromino(){
+        for (GridCell<Character> fallingTetrominoCell : fallingTetromino) {
+            board.set(fallingTetrominoCell.pos(), fallingTetrominoCell.value());
+        }
+        newShape();
+    }
+
+    @Override
+    public GameState getGamestate() {
+      return gameState;
+    }
+
+
 }

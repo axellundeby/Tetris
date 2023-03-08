@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 import no.uib.inf101.grid.CellPosition;
 import no.uib.inf101.grid.GridCell;
 import no.uib.inf101.grid.GridDimension;
+import no.uib.inf101.tetris.model.GameState;
 import no.uib.inf101.tetris.model.ViewableTetrisModel;
 
 import java.awt.Graphics;
@@ -34,13 +35,17 @@ public class TetrisView extends JPanel {
       drawGame(g2);
     }
 
-    private void drawGame(Graphics2D g2) {
+    private void drawGame(Graphics2D g) {
         Rectangle2D tetrisBox = new Rectangle2D.Double(OutMargin, OutMargin, this.getWidth() - OutMargin * 2, this.getHeight() - OutMargin * 2);
         GridDimension dimension = view.getDimension();
         CellPositionToPixelConverter converter = new CellPositionToPixelConverter(tetrisBox, dimension, InnMargin);
 
-        drawCells(g2, view.getTilesOnBoard(), converter, colorTheme);
-        drawCells(g2, view.getPiece(), converter, colorTheme);
+        drawCells(g, view.getTilesOnBoard(), converter, colorTheme);
+        drawCells(g, view.getPiece(), converter, colorTheme);
+
+        if(view.getGamestate() == GameState.GAME_OVER){
+            drawGameover(g);
+        }
       } 
       
     private void drawCells(Graphics2D g, Iterable<GridCell<Character>> tetrisgrid, CellPositionToPixelConverter converter, ColorTheme colorTheme) {
@@ -52,5 +57,16 @@ public class TetrisView extends JPanel {
         g.setColor(color);
         g.fill(rectangle);
         }
+    }
+
+    public void drawGameover(Graphics2D g){
+        ColorTheme gmColor = new DefaultColorTheme();
+        g.setColor(gmColor.getGameOverBackgroundColor());
+        g.fillRect(OutMargin, OutMargin, this.getWidth() - OutMargin * 2, this.getHeight() - OutMargin * 2);
+        
+        g.setFont(gmColor.getFont());
+        g.setColor(gmColor.getFontColor());
+
+        Inf101Graphics.drawCenteredString(g, "GameOver",OutMargin, OutMargin, this.getWidth() - OutMargin * 2, this.getHeight() - OutMargin * 2);
     }
 }

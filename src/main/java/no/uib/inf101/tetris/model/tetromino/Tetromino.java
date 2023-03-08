@@ -62,7 +62,6 @@ public final class Tetromino implements Iterable<GridCell<Character>>{
         this.pos=pos;
     }
 
-
     public static Tetromino newTetromino(char c){
         CellPosition pos =  new CellPosition(0, 0);
 
@@ -134,5 +133,34 @@ public final class Tetromino implements Iterable<GridCell<Character>>{
           Tetromino other = (Tetromino) obj;
           return this.c == other.c && Arrays.deepEquals(this.shape, other.shape) &&  this.pos.equals(other.pos);
       }
+    
 
+
+    public Tetromino rotateTetromino(){
+        boolean[][] copiedShape = rotateClockWise(this.shape);
+        return new Tetromino(c, copiedShape, pos);
+    }
+
+    private boolean[][] rotateClockWise(boolean[][] Shape) {
+        int rows = Shape.length;
+        int cols = Shape[0].length;
+        boolean[][] copiedShape = new boolean[rows][cols];
+
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            copiedShape[i][j] = Shape[i][j];//lager en kopi
+        }
+    }
+    //fant denne koden på nett https://www.geeksforgeeks.org/rotate-a-matrix-by-90-degree-in-clockwise-direction-without-using-any-extra-space/
+    for (int i = 0; i < copiedShape.length / 2; i++){
+        for (int j = i; j < copiedShape.length - i - 1; j++){
+            boolean temp = copiedShape[i][j];
+            copiedShape[i][j] = copiedShape[copiedShape.length - 1 - j][i];
+            copiedShape[copiedShape.length - 1 - j][i] = copiedShape[copiedShape.length - 1 - i][copiedShape.length - 1 - j];
+            copiedShape[copiedShape.length - 1 - i][copiedShape.length - 1 - j] = copiedShape[j][copiedShape.length - 1 - i];
+            copiedShape[j][copiedShape.length - 1 - i] = temp;
+        }
+    }
+    return copiedShape;
+    }
 }
