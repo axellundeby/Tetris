@@ -20,10 +20,7 @@ public class TetrisMain {
     TetrominoFactory factory = new RandomTetrominoFactory();
     TetrisModel model = new TetrisModel(board, factory, factory.getNext());
     TetrisView view = new TetrisView(model);
-    board.set(new CellPosition(0, 0), 'g');
-    board.set(new CellPosition(0, 9), 'y');
-    board.set(new CellPosition(19, 0), 'r');
-    board.set(new CellPosition(19, 9), 'b');
+    
 
     TetrisController controller = new TetrisController(model, view);
     // The JFrame is the "root" application window.

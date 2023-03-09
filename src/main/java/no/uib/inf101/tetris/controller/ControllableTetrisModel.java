@@ -1,5 +1,6 @@
 package no.uib.inf101.tetris.controller;
 
+
 import no.uib.inf101.tetris.model.GameState;
 
 public interface ControllableTetrisModel {
@@ -7,5 +8,8 @@ public interface ControllableTetrisModel {
     void rotateTetromino();
     boolean tetrominoDrop();    
     GameState getGamestate();
-
+    
+    int droptimer();
+    
+    void clockTick();
 }

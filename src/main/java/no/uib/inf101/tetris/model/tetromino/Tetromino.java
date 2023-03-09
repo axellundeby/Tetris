@@ -134,8 +134,6 @@ public final class Tetromino implements Iterable<GridCell<Character>>{
           return this.c == other.c && Arrays.deepEquals(this.shape, other.shape) &&  this.pos.equals(other.pos);
       }
     
-
-
     public Tetromino rotateTetromino(){
         boolean[][] copiedShape = rotateClockWise(this.shape);
         return new Tetromino(c, copiedShape, pos);

@@ -25,7 +25,7 @@ public class TetrisView extends JPanel {
         this.view=view;
         this.colorTheme=new DefaultColorTheme();
         this.setFocusable(true);
-        this.setPreferredSize(new Dimension(350, 650));
+        this.setPreferredSize(new Dimension(450, 800));
     }
 
     @Override
@@ -67,6 +67,6 @@ public class TetrisView extends JPanel {
         g.setFont(gmColor.getFont());
         g.setColor(gmColor.getFontColor());
 
-        Inf101Graphics.drawCenteredString(g, "GameOver",OutMargin, OutMargin, this.getWidth() - OutMargin * 2, this.getHeight() - OutMargin * 2);
+        Inf101Graphics.drawCenteredString(g, "Game Over",OutMargin, OutMargin, this.getWidth() - OutMargin * 2, this.getHeight() - OutMargin * 2);
     }
 }
