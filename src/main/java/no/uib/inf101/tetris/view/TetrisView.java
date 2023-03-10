@@ -36,6 +36,10 @@ public class TetrisView extends JPanel {
       drawGame(g2);
     }
 
+    /**
+     * draws the box where the cells are defined
+     * @param g
+     */
     private void drawGame(Graphics2D g) {
         Rectangle2D tetrisBox = new Rectangle2D.Double(OutMargin, OutMargin, this.getWidth() - OutMargin * 2, this.getHeight() - OutMargin * 2);
         GridDimension dimension = view.getDimension();
@@ -48,7 +52,13 @@ public class TetrisView extends JPanel {
             drawGameover(g);
         }
       } 
-      
+    /**
+     * 
+     * @param g
+     * @param tetrisgrid
+     * @param converter
+     * @param colorTheme
+     */ 
     private void drawCells(Graphics2D g, Iterable<GridCell<Character>> tetrisgrid, CellPositionToPixelConverter converter, ColorTheme colorTheme) {
         for (GridCell<Character> cell : tetrisgrid) {
         CellPosition cordinate = cell.pos();

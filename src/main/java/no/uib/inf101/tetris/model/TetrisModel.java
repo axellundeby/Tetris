@@ -23,11 +23,12 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
         this.fallingTetromino = fallingTetromino.shiftedToTopCenterOf(board);
       
     }
-
+    @Override
     public GridDimension getDimension(){
         return this.board;
     }
 
+    @Override
     public Iterable<GridCell<Character>> getTilesOnBoard(){
         return this.board;
     }
@@ -47,17 +48,20 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
         return false;
     }
 
-    //skriv i javadoc
+    /**
+     * Checks if a shapes position is legal
+     * @param shape 
+     * @return if the position is legal return true, otherwise retrun false.
+     */
     public boolean legalTetreminoMove(Tetromino shape){    
         for (GridCell<Character> ShapeCell : shape) {
             CellPosition pos = ShapeCell.pos();
             if(!(board.positionIsOnGrid(pos) && board.get(pos) == '-')){
                 return false;
-            }
+        }
         }
         return true;
     }
-
 
     @Override
     public void rotateTetromino() {
@@ -75,6 +79,10 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
        glueTetromino();
     } 
     
+    /**
+     * generates a new tetromiono and places it at the top center of the board, if the new tetromino can
+     * legaly be placed it becomes the fallingetromino, otherwise the gamestate is set to game over
+     */
     public void newShape(){
         Tetromino fallingTetrominoTemp = factory.getNext().shiftedToTopCenterOf(board);
         if((legalTetreminoMove(fallingTetrominoTemp))){
@@ -85,6 +93,9 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
         }
     }
 
+    /**
+     * glues the tetromino to the bord, call on the method newShape() and rowsRemoved()
+     */
     public void glueTetromino(){
         for (GridCell<Character> fallingTetrominoCell : fallingTetromino) {
             board.set(fallingTetrominoCell.pos(), fallingTetrominoCell.value());

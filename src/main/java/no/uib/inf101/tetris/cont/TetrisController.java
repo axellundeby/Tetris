@@ -38,32 +38,32 @@ public class TetrisController implements java.awt.event.KeyListener{
         if(controllmodel.getGamestate() == GameState.ACTIVE_GAME){
         if (e.getKeyCode() == KeyEvent.VK_LEFT) {
             controllmodel.moveTetromino(0, -1);
-            view.repaint();
+        
         }
         else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
             controllmodel.moveTetromino(0, 1);
-            view.repaint();
+  
         }
         else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
             controllmodel.moveTetromino(1, 0);
-            view.repaint();
+
         }
         else if (e.getKeyCode() == KeyEvent.VK_UP) {
             controllmodel.rotateTetromino();
-            view.repaint();
+
         }
         else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
             controllmodel.tetrominoDrop();
-            view.repaint();
         }
     }
+    view.repaint();
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
 
     }
-
+    //spør vilde om override
     public void clockTick(ActionEvent e){
         controllmodel.clockTick();
         view.repaint();

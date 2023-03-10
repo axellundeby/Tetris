@@ -16,19 +16,23 @@ public class CellPositionToPixelConverter {
     this.margin=margin;
   }
 
-  public Rectangle2D getBoundsForCell(CellPosition pos){//regner ut hvor boksene skal være ut i fra rows og cols
-    double rows = gd.rows();//rows til griden
-    double cols = gd.cols();//cols til griden
+  /**
+   * calculates the position of the cells on a given position
+   * @param pos a given position on a grid
+   * @return cell
+   */
 
-    double cellWidth = (box.getWidth() - (this.margin * (cols +1))) / cols;//cellens bredde
-    double cellHeight = (box.getHeight() - (this.margin * (rows +1))) / rows;//cellenes høyde
+  public Rectangle2D getBoundsForCell(CellPosition pos){
+    double rows = gd.rows();
+    double cols = gd.cols();
 
-    double cellX = box.getX() + (this.margin * (pos.col() + 1)) + (cellWidth * pos.col());//cellenes x startpunkt
-    double cellY = box.getY() + (this.margin * (pos.row() + 1)) + (cellHeight * pos.row());//cellenes y start punkt
+    double cellWidth = (box.getWidth() - (this.margin * (cols +1))) / cols;
+    double cellHeight = (box.getHeight() - (this.margin * (rows +1))) / rows;
 
-    Rectangle2D tetrisbox = new Rectangle2D.Double(cellX,cellY,cellWidth,cellHeight);//lager rektanglet
+    double cellX = box.getX() + (this.margin * (pos.col() + 1)) + (cellWidth * pos.col());
+    double cellY = box.getY() + (this.margin * (pos.row() + 1)) + (cellHeight * pos.row());
+
+    Rectangle2D tetrisbox = new Rectangle2D.Double(cellX,cellY,cellWidth,cellHeight);
     return tetrisbox; 
   }
-
-
 }

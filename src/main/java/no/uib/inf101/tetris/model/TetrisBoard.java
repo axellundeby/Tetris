@@ -74,7 +74,8 @@ public class TetrisBoard extends Grid<Character>{
         }
     
     /**
-     * remove all rows that are full
+     * checks if a row is full of elemets starting from the bottom row, if a row is full
+     * the row is set to a blacktile
      * @return a number of removed rowes
      */
 

@@ -152,8 +152,9 @@ public final class Tetromino implements Iterable<GridCell<Character>>{
           return this.c == other.c && Arrays.deepEquals(this.shape, other.shape) &&  this.pos.equals(other.pos);
       }
     
-      //her burde javadocen fra interfacet kommet opp når jeg hovrer over, derfor @override??
-    
+     /**
+     * @return a new Tetromino object that is rotated 90 degrees clockwise.
+     */
     public Tetromino rotateTetromino(){
         boolean[][] copiedShape = rotateClockWise(this.shape);
         return new Tetromino(c, copiedShape, pos);
@@ -171,7 +172,7 @@ public final class Tetromino implements Iterable<GridCell<Character>>{
 
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < cols; j++) {
-            copiedShape[i][j] = Shape[i][j];//lager en kopi
+            copiedShape[i][j] = Shape[i][j];
         }
     }
     //fant denne koden på nett https://www.geeksforgeeks.org/rotate-a-matrix-by-90-degree-in-clockwise-direction-without-using-any-extra-space/

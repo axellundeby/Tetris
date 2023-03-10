@@ -12,11 +12,20 @@ public interface ColorTheme {
      /**@return the color of the background */
      Color getBackgroundColor();
 
-     //font, farge til fonten, gameover bakfarg
-
+     
+     /**
+      * @return the font
+      */
      Font getFont();
 
+     /**
+      * @return the fontcolor
+      */
      Color getFontColor();
+
+     /**
+      * @return the gameover backgroundColor
+      */
 
      Color getGameOverBackgroundColor();
 
