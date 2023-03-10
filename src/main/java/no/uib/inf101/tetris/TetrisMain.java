@@ -1,9 +1,6 @@
 package no.uib.inf101.tetris;
-
 import javax.swing.JFrame;
-
-import no.uib.inf101.grid.CellPosition;
-import no.uib.inf101.tetris.controller.TetrisController;
+import no.uib.inf101.tetris.cont.TetrisController;
 import no.uib.inf101.tetris.model.TetrisBoard;
 import no.uib.inf101.tetris.model.TetrisModel;
 import no.uib.inf101.tetris.model.tetromino.RandomTetrominoFactory;
@@ -22,7 +19,7 @@ public class TetrisMain {
     TetrisView view = new TetrisView(model);
     
 
-    TetrisController controller = new TetrisController(model, view);
+    new TetrisController(model, view);
     // The JFrame is the "root" application window.
     // We here set som properties of the main window, 
     // and tell it to display our tetrisView

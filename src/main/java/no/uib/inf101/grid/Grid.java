@@ -70,9 +70,19 @@ public class Grid<E> implements IGrid<E>  {
             return cells.get(locationToIndex(pos));
         }
     }
-
+    /**
+     * Viser til en gitt celleposisjon til en indeks i den interne listen over celler.
+     * 
+     * @param pos en celleposisjon som skal vise til en indeks
+     * @return indeksen til cellen som svarer til den gitte posisjonen
+     * @throws IndexOutOfBoundsException hvis posisjonen er ugyldig (utenfor rutenettet)
+     */
     private int locationToIndex(CellPosition pos) {
-        return pos.row() + pos.col() * rows;
+        int index = pos.row() * columns + pos.col();
+        if (index < 0 || index >= cells.size()) {
+            throw new IndexOutOfBoundsException("The given position is not valid for this grid");
+        }
+        return index;
     }
 
     @Override

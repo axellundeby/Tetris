@@ -1,30 +1,32 @@
-package no.uib.inf101.tetris.controller;
+package no.uib.inf101.tetris.cont;
 
 import java.awt.event.KeyEvent;
+import java.awt.event.ActionEvent;
 
 import javax.swing.Timer;
 
 import no.uib.inf101.tetris.model.GameState;
 import no.uib.inf101.tetris.view.TetrisView;
-import java.awt.event.ActionEvent;
+import no.uib.inf101.tetris.midi.TetrisSong;
+
+
 
 
 public class TetrisController implements java.awt.event.KeyListener{
     private final ControllableTetrisModel controllmodel;
     private final TetrisView view;
     private final Timer timer;
+    private final TetrisSong song = new TetrisSong();
+    
 
     public TetrisController(ControllableTetrisModel controllmodel, TetrisView view){
         this.view=view;
         this.controllmodel=controllmodel;
-      
-
         view.addKeyListener(this);
         view.setFocusable(true);
-
         this.timer = new Timer(controllmodel.droptimer(), this::clockTick);
         timer.start();
-
+        song.run();
     }
 
     @Override

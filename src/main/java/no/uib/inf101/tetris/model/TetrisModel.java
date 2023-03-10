@@ -1,11 +1,10 @@
 package no.uib.inf101.tetris.model;
-import javax.crypto.spec.RC2ParameterSpec;
+
 
 import no.uib.inf101.grid.CellPosition;
 import no.uib.inf101.grid.GridCell;
 import no.uib.inf101.grid.GridDimension;
-import no.uib.inf101.tetris.controller.ControllableTetrisModel;
-import no.uib.inf101.tetris.midi.TetrisSong;
+import no.uib.inf101.tetris.cont.ControllableTetrisModel;
 import no.uib.inf101.tetris.model.tetromino.Tetromino;
 import no.uib.inf101.tetris.model.tetromino.TetrominoFactory;
 
@@ -13,16 +12,16 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
     TetrisBoard board;
     TetrominoFactory factory;
     Tetromino fallingTetromino;
-    private final TetrisSong music = new TetrisSong();
 
     GameState gameState = GameState.ACTIVE_GAME;
+
     
     public TetrisModel(TetrisBoard board, TetrominoFactory factory, Tetromino fallingTetromino){
         this.board = board;
         this.factory = factory;
         this.fallingTetromino = factory.getNext();
         this.fallingTetromino = fallingTetromino.shiftedToTopCenterOf(board);
-        music.run();
+      
     }
 
     public GridDimension getDimension(){
@@ -69,12 +68,11 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
     }
 
     @Override
-    public boolean tetrominoDrop() {
+    public void tetrominoDrop() {
        while(legalTetreminoMove(fallingTetromino.shiftedBy(1, 0))){
         moveTetromino(1, 0);
        }
        glueTetromino();
-       return true;
     } 
     
     public void newShape(){
@@ -103,7 +101,7 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
 
     @Override
     public int droptimer() {
-        return 500;
+        return 1000;
     }
 
     @Override

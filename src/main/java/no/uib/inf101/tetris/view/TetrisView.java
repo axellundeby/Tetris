@@ -26,6 +26,7 @@ public class TetrisView extends JPanel {
         this.colorTheme=new DefaultColorTheme();
         this.setFocusable(true);
         this.setPreferredSize(new Dimension(450, 800));
+        this.setBackground(getBackground());
     }
 
     @Override

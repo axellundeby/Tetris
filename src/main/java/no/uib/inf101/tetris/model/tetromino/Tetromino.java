@@ -61,6 +61,12 @@ public final class Tetromino implements Iterable<GridCell<Character>>{
         this.shape=shape;
         this.pos=pos;
     }
+    /**
+     * a switch method that
+     * @param c a character that determines the tetromino
+     * @return a new tetromino
+     * @throws IllegalArgumentException if the character is not in the tetromino familiy 
+     */
 
     public static Tetromino newTetromino(char c){
         CellPosition pos =  new CellPosition(0, 0);
@@ -81,6 +87,13 @@ public final class Tetromino implements Iterable<GridCell<Character>>{
         Tetromino symbol = new Tetromino(c, shape, pos);
         return symbol; 
     }
+
+    /**
+     * creates a copy of a tetremono that indicate how long the copied shape was moved
+     * @param deltaRow the row the copy is moved to
+     * @param deltaCol the col the copy is moved to
+     * @return the moved copy
+     */
     
     public Tetromino shiftedBy(int deltaRow , int deltaCol){
         CellPosition pos =  new CellPosition(this.pos.row() + deltaRow, this.pos.col() +  deltaCol);
@@ -88,6 +101,11 @@ public final class Tetromino implements Iterable<GridCell<Character>>{
         return ShapeCopy;
     }
 
+    /**
+     * creates a copy of a tetremiono that is located at the centertop of the grid
+     * @param Dimension the dimention of the grid
+     * @return a top centerd tetromino 
+     */
 
     public Tetromino shiftedToTopCenterOf(GridDimension Dimension){
         int cols = Dimension.cols();
@@ -134,11 +152,18 @@ public final class Tetromino implements Iterable<GridCell<Character>>{
           return this.c == other.c && Arrays.deepEquals(this.shape, other.shape) &&  this.pos.equals(other.pos);
       }
     
+      //her burde javadocen fra interfacet kommet opp når jeg hovrer over, derfor @override??
+    
     public Tetromino rotateTetromino(){
         boolean[][] copiedShape = rotateClockWise(this.shape);
         return new Tetromino(c, copiedShape, pos);
     }
 
+    /**
+     * creates a copy of the shape, then the shape is rotated
+     * @param Shape the shape that is beeing copied
+     * @return the copiedrotated shape
+     */
     private boolean[][] rotateClockWise(boolean[][] Shape) {
         int rows = Shape.length;
         int cols = Shape[0].length;
